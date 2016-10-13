@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class GettingStartedTest {
 
-    @Test
+    @Test // Bonjour c'est Glenn
     public void testGettingStarted() throws IOException {
 
         // Define a file representing a PCM to load
