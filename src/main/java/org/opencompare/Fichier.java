@@ -2,82 +2,125 @@ package org.opencompare;
 import java.io.*;
 public class Fichier{
 	
-	public Fichier() throws IOException{
-	
-	File file = new File("C:/Users/Glenn/Hello1.html");
-    
-    // creates the file
-    file.createNewFile();
-    int nbFeatures=4;
-    String bab = "var ctx = document.getElementById(\"myChart\");var myChart = new Chart(ctx, {"
- + "type: 'bar',"
-  +"data: {"
-   +"   labels: [\"Red\", \"Blue\", \"Yellow\", \"Green\", \"Purple\", \"Orange\"],"
-      +"datasets: [{"
-        +"  label: '# of Votes',"
-         +" data: [12, 19, 3, 5, 2, 3],"
-         +" backgroundColor: ["
-           +"   'rgba(255, 99, 132, 0.2)',"
-             +" 'rgba(54, 162, 235, 0.2)',"
-             +" 'rgba(255, 206, 86, 0.2)',"
-             +" 'rgba(75, 192, 192, 0.2)',"
-             +" 'rgba(153, 102, 255, 0.2)',"
-             +" 'rgba(255, 159, 64, 0.2)'"
-       +"   ],"
-          +"borderColor: ["
-              +"'rgba(255,99,132,1)',"
-             +" 'rgba(54, 162, 235, 1)',"
-             +" 'rgba(255, 206, 86, 1)',"
-             +" 'rgba(75, 192, 192, 1)',"
-             +" 'rgba(153, 102, 255, 1)',"
-             +" 'rgba(255, 159, 64, 1)'"
-         +" ],"
-         +" borderWidth: 1"
-     +"}]"
-  +"},"
-  +"options: {"
-      +"scales: {"
-         +" yAxes: [{"
-             +" ticks: {"
-                +"  beginAtZero:true"
-            +"  }"
-         +" }]"
-      +"}"
- +"}" 
-+"});";
-    
-    // creates a FileWriter Object
-    FileWriter writer = new FileWriter(file); 
-    
-    // Writes the content to the file
-    writer.write("<html>"
-  		  +"<head> <script src=\"Chart.js\"></script> <TITLE>Votre comparateur</TITLE></head>"
-  		 +"<body>"
-  		  
-  		  +"<div style=\"width : 80%\">"
-    		+ "<meta chartset=\"utf-8\" /> </head><h2><b> Choisissez </b> ce que vous voulez comparer</h2>"
-  		  +nbFeatures+"features"
-    		+"<canvas id=\"myChart\" width=\"400\" height=\"400\"> Votre navigateur ne supporte pas canvas.</canvas>"
-    		+"<script>"+bab+"</script>"
-    		+"</div>"
-    		+ " blabla"
-    		+ "fin du graf"
-    		+"</body>"); 
-    writer.flush();
-    writer.close();
+	private int nbFeature = 4;
+	private String htmlPath = "src/Graph.html";
+	private String jsPath = "src/js/newChart.js";
+	private String jsonPath = "json/voiture.json";
+	private String idChart ="myChart";
 
-    // Creates a FileReader Object
-    FileReader fr = new FileReader(file); 
-    char [] a = new char[50];
-    fr.read(a);   // reads the content to the array
+	
+	public void createHtml() throws IOException{
+		String head,body;
+		head = "<!doctype html><html><head><meta charset=\"utf-8\">"+
+				" <TITLE>Votre comparateur</TITLE><script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
+				+"</script></head>"
+				;
+		body = "<body><div style=\"width : 400px\"><canvas id=\""+idChart+"\" height=\"400\" width=\"400\"></canvas>"
+				+"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>"
+				+"<script src=\"js/newChart.js\" ></script>"
+				+"</div></body></html>"
+				;
+		File file = new File(htmlPath);
+		// creates the file
+		file.createNewFile();
+		
     
- 
-       System.out.print("Le fichier a été généré");   
-    fr.close();
+    	// creates a FileWriter Object
+    	FileWriter writer = new FileWriter(file);
+    	
+    	// Writes the content to the file
+    	writer.write(head+body);
+    			
+    	writer.flush();
+    	writer.close();
  }
+	
+	public void createJS() throws IOException {
+		String global,functions,chartFunction,execFunction;
+		global = "Chart.defaults.scale.ticks.beginAtZero = true;Chart.defaults.global.elements.line.borderWidth = 1;";
+		functions = "function getRandomColor() {var letters = '0123456789ABCDEF';var color = '#';for (var i = 0; i < 6; i++ ) {color += letters[Math.floor(Math.random() * 16)];}return color;}";
+		chartFunction = "function radarChart() {var jsonData = $.ajax({url: '"+jsonPath+"',dataType: 'json',}).done(function (results) {var feature = \"nb de porte\";\r\n" + 
+				"		var dataset = [];\r\n" + 
+				"		var labels = [];\r\n" + 
+				"		var data = [];\r\n" + 
+				"		var dataS = [];\r\n" + 
+				"		var donneeEtEffectif ={};\r\n" + 
+				"		var color = '';\r\n" + 
+				"		\r\n" + 
+				"		\r\n" + 
+				"		$.each(results,function(key,val) {\r\n" + 
+				"			var donneeTemp = val[feature];\r\n" + 
+				"			if (!(donneeTemp in donneeEtEffectif)){\r\n" + 
+				"				donneeEtEffectif[donneeTemp] = 1;\r\n" + 
+				"			}\r\n" + 
+				"			else{\r\n" + 
+				"				donneeEtEffectif[donneeTemp] ++;\r\n" + 
+				"			}	\r\n" + 
+				"		});\r\n" + 
+				"		\r\n" + 
+				"		Object.keys(donneeEtEffectif).forEach(function (key) {\r\n" + 
+				"			labels.push(key);\r\n" + 
+				"			data.push(donneeEtEffectif[key]);\r\n" + 
+				"		});\r\n" + 
+				"		\r\n" + 
+				"		dataset.label = feature;\r\n" + 
+				"		dataset.data = data;\r\n" + 
+				"		var nombreLabels = labels.length;\r\n" + 
+				"		var bColor = [];\r\n" + 
+				"		var bderColor =[];\r\n" + 
+				"		for (i=1; i<= nombreLabels;i++){\r\n" + 
+				"			color=getRandomColor();\r\n" + 
+				"			bColor.push(color);\r\n" + 
+				"			bderColor.push(color);\r\n" + 
+				"		}\r\n" + 
+				"		dataset.backgroundColor = bColor;\r\n" + 
+				"		dataset.borderColor = bderColor;\r\n" + 
+				"		dataS.push(dataset);\r\n" + 
+				"		\r\n" + 
+				"	//Variable data du constructeur\r\n" + 
+				"	var tempData = {\r\n" + 
+				"			labels : labels,\r\n" + 
+				"			datasets : dataS\r\n" + 
+				"	};\r\n" + 
+				"	console.log(tempData);\r\n" + 
+				"\r\n" + 
+				"      //Chart constructeur\r\n" + 
+				"	 var ctx = document.getElementById(\""+idChart+"\").getContext(\"2d\");\r\n" + 
+				"     var myLineChart =new Chart(ctx, {\r\n" + 
+				"		type: 'radar',\r\n" + 
+				"		data: tempData,\r\n" + 
+				"	});\r\n" + 
+				"	\r\n" + 
+				"  });\r\n" +
+				"}"
+				;
+				execFunction ="radarChart();";
+				
+				File file = new File(jsPath);
+				// creates the file
+				file.createNewFile();
+				
+		    
+		    	// creates a FileWriter Object
+		    	FileWriter writer = new FileWriter(file);
+		    	
+		    	// Writes the content to the file
+		    	writer.write(global+functions+chartFunction+execFunction);
+		    			
+		    	writer.flush();
+		    	writer.close();
+				
+				;
+	
+	
+	
+	
+	}
 
 
    public static void main(String args[])throws IOException {
-      new Fichier();
+	   Fichier file = new Fichier();
+	   file.createHtml();
+	   file.createJS();
 }
    }
