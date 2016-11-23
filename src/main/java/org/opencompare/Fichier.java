@@ -15,7 +15,10 @@ public class Fichier{
 				" <TITLE>Votre comparateur</TITLE><script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
 				+"</script></head>"
 				;
-		body = "<body><div style=\"width : 400px\"><canvas id=\""+idChart+"\" height=\"400\" width=\"400\"></canvas>"
+		body = "<body><div style=\"width : 400px\">"
+				+"<button onclick=\"alert('Baton')\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\"></button>"
+				+"<button onclick=\"alert('Camembert')\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\"></button>"
+				+"<canvas id=\""+idChart+"\" height=\"400\" width=\"400\"></canvas>"
 				+"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>"
 				+"<script src=\"js/newChart.js\" ></script>"
 				+"</div></body></html>"
@@ -117,6 +120,8 @@ public class Fichier{
    public static void main(String args[])throws IOException {
 	   Fichier file = new Fichier();
 	   file.createHtml();
+	   System.out.println("Le fichier html a été généré.");
 	   file.createJS();
+	   System.out.println("Le fichier js a été généré.");
 }
    }
