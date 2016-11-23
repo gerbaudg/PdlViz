@@ -2,7 +2,7 @@ package org.opencompare;
 import java.io.*;
 public class Fichier{
 	
-	private int nbFeature = 4;
+	//private int nbFeature = 4;
 	private String htmlPath = "src/Graph.html";
 	private String jsPath = "src/js/newChart.js";
 	private String jsonPath = "json/voiture.json";
@@ -111,10 +111,6 @@ public class Fichier{
 		    	writer.close();
 				
 				;
-	
-	
-	
-	
 	}
 
 
