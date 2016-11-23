@@ -11,13 +11,14 @@ public class Fichier{
 	
 	public void createHtml() throws IOException{
 		String head,body;
-		head = "<!doctype html><html><head><meta charset=\"utf-8\">"+
-				" <TITLE>Votre comparateur</TITLE><script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
+		head = "<!doctype html><html><head><meta charset=\"utf-8\">"
+				+"<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\">"
+				+"<TITLE>Votre comparateur</TITLE><script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
 				+"</script></head>"
 				;
 		body = "<body><div style=\"width : 400px\">"
-				+"<button onclick=\"alert('Baton')\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\"></button>"
-				+"<button onclick=\"alert('Camembert')\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\"></button>"
+				+"<button onclick=\"alert('Baton')\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
+				+"<button onclick=\"alert('Camembert')\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
 				+"<canvas id=\""+idChart+"\" height=\"400\" width=\"400\"></canvas>"
 				+"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>"
 				+"<script src=\"js/newChart.js\" ></script>"
