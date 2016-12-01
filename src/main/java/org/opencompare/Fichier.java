@@ -5,23 +5,36 @@ public class Fichier{
 	//private int nbFeature = 4;
 	private String htmlPath = "src/Graph.html";
 	private String jsPath = "src/js/newChart.js";
+	private String jsPathRelative = "js/newChart.js";
 	private String jsonPath = "json/voiture.json";
 	private String idChart ="myChart";
+	private String execFunction ="thisChart()";
 
 	
 	public void createHtml() throws IOException{
 		String head,body;
 		head = "<!doctype html><html><head><meta charset=\"utf-8\">"
-				+"<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\">"
-				+"<TITLE>Votre comparateur</TITLE><script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
+				+"<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\">"
+				+"<TITLE>Votre comparateur</TITLE>"
+				+ "<script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
 				+"</script></head>"
 				;
-		body = "<body><div style=\"width : 400px\">"
-				+"<button onclick=\"alert('Baton')\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
-				+"<button onclick=\"alert('Camembert')\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
-				+"<canvas id=\""+idChart+"\" height=\"400\" width=\"400\"></canvas>"
+		body = "<body>"
 				+"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>"
-				+"<script src=\"js/newChart.js\" ></script>"
+				+"<script src=\""
+				+ jsPathRelative
+				+ "\" ></script>"
+				+"<button onclick=\""
+				+ execFunction
+				+ "\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
+				+"<button onclick=\""
+				+ execFunction
+				+ "\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
+				+ "<div style=\"width : 400px\">"
+				+"<canvas id=\""
+				+idChart
+				+"\" height=\"400\" width=\"400\"></canvas>"
+
 				+"</div></body></html>"
 				;
 		File file = new File(htmlPath);
@@ -40,10 +53,12 @@ public class Fichier{
  }
 	
 	public void createJS() throws IOException {
-		String global,functions,chartFunction,execFunction;
+		String global,functions,chartFunction;
 		global = "Chart.defaults.scale.ticks.beginAtZero = true;Chart.defaults.global.elements.line.borderWidth = 1;";
 		functions = "function getRandomColor() {var letters = '0123456789ABCDEF';var color = '#';for (var i = 0; i < 6; i++ ) {color += letters[Math.floor(Math.random() * 16)];}return color;}";
-		chartFunction = "function radarChart() {var jsonData = $.ajax({url: '"+jsonPath+"',dataType: 'json',}).done(function (results) {var feature = \"nb de porte\";\r\n" + 
+		chartFunction = "function "
+				+ execFunction
+				+ " {var jsonData = $.ajax({url: '"+jsonPath+"',dataType: 'json',}).done(function (results) {var feature = \"nb de porte\";\r\n" + 
 				"		var dataset = [];\r\n" + 
 				"		var labels = [];\r\n" + 
 				"		var data = [];\r\n" + 
@@ -98,7 +113,7 @@ public class Fichier{
 				"  });\r\n" +
 				"}"
 				;
-				execFunction ="radarChart();";
+				//execFunction ="thisChart();";
 				
 				File file = new File(jsPath);
 				// creates the file
@@ -109,7 +124,7 @@ public class Fichier{
 		    	FileWriter writer = new FileWriter(file);
 		    	
 		    	// Writes the content to the file
-		    	writer.write(global+functions+chartFunction+execFunction);
+		    	writer.write(global+functions+chartFunction);
 		    			
 		    	writer.flush();
 		    	writer.close();
@@ -121,8 +136,8 @@ public class Fichier{
    public static void main(String args[])throws IOException {
 	   Fichier file = new Fichier();
 	   file.createHtml();
-	   System.out.println("Le fichier html a été généré.");
+	   System.out.println("Le fichier html a ete cree.");
 	   file.createJS();
-	   System.out.println("Le fichier js a été généré.");
+	   System.out.println("Le fichier js a ete cree.");
 }
    }
