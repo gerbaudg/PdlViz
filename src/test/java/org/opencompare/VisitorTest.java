@@ -25,7 +25,7 @@ public class VisitorTest {
         assertNotNull(pcm);
 
         // Execute the printer
-        MyPCMPrinter myPrinter = new MyPCMPrinter();
+        MyPCMprint myPrinter = new MyPCMprint();
         myPrinter.print(pcm);
 
 
