@@ -1,0 +1,21 @@
+**bâton **
+
+donnée int 
+donnée String -> compté occurence 
+
+
+
+
+**courbes** 
+si le produit est année -> courbe
+s'il y  a évolution du produit (exemple le poids de qqch ) en fonction des features 
+
+
+**radar**
+un produit avec plusieur features -> radar
+un feature donnée int 
+un feature donnée %
+
+**Camembert**
+donnée String compté ocurrence
+données %
