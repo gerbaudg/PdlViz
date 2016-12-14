@@ -1,4 +1,4 @@
-package org.opencompare;
+package org.opencompare.file;
 import java.io.*;
 public class Fichier{
 	
@@ -9,7 +9,11 @@ public class Fichier{
 	private String jsonPath = "json/voiture.json";
 	private String idChart ="myChart";
 	private String execFunction ="thisChart()";
-
+	private String pcmPath="";
+	
+	public void setpcmPath(String pcm){
+		pcmPath=pcm;
+	}
 	
 	public void createHtml() throws IOException{
 		String head,body;

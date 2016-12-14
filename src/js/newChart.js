@@ -1,4 +1,4 @@
-Chart.defaults.scale.ticks.beginAtZero = true;Chart.defaults.global.elements.line.borderWidth = 1;function getRandomColor() {var letters = '0123456789ABCDEF';var color = '#';for (var i = 0; i < 6; i++ ) {color += letters[Math.floor(Math.random() * 16)];}return color;}function radarChart() {var jsonData = $.ajax({url: 'json/voiture.json',dataType: 'json',}).done(function (results) {var feature = "nb de porte";
+Chart.defaults.scale.ticks.beginAtZero = true;Chart.defaults.global.elements.line.borderWidth = 1;function getRandomColor() {var letters = '0123456789ABCDEF';var color = '#';for (var i = 0; i < 6; i++ ) {color += letters[Math.floor(Math.random() * 16)];}return color;}function thisChart() {var jsonData = $.ajax({url: 'json/voiture.json',dataType: 'json',}).done(function (results) {var feature = "nb de porte";
 		var dataset = [];
 		var labels = [];
 		var data = [];
@@ -51,4 +51,4 @@ Chart.defaults.scale.ticks.beginAtZero = true;Chart.defaults.global.elements.lin
 	});
 	
   });
-}radarChart();
+}
