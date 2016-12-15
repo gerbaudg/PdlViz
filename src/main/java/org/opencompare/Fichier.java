@@ -17,6 +17,7 @@ public class Fichier{
 				+"</script></head>"
 				;
 		body = "<body><div style=\"width : 400px\">"
+				+"<h1>Projet OPENCOMPARE - VIZ</h1>" 
 				+"<button onclick=\"alert('Baton')\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
 				+"<button onclick=\"alert('Camembert')\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
 				+"<canvas id=\""+idChart+"\" height=\"400\" width=\"400\"></canvas>"
