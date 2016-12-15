@@ -53,7 +53,6 @@ public class TraitementPcm implements PCMVisitor {
 		for (Feature feat : pcm.getConcreteFeatures()) {
 			feat.accept(this);
 		}
-
 	}
 
 	@Override

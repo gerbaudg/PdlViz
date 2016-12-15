@@ -132,7 +132,6 @@ public class Fichier{
 		    			
 		    	writer.flush();
 		    	writer.close();
-				
 				;
 	}
 

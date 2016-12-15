@@ -13,7 +13,7 @@ public class Main {
 		try {
 			file = new Fichier();
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Donnez le nom du pcm à traiter :");
+			System.out.println("Donnez le nom du pcm ï¿½ traiter :");
 			String pcm = sc.nextLine();
 
 			file.setpcmPath(pcm);
