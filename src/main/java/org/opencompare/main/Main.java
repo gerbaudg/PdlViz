@@ -1,5 +1,7 @@
 package org.opencompare.main;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -10,6 +12,20 @@ public class Main {
 	static Fichier file;
 
 	public static void main(String[] args) {
+		
+		FilenameFilter javaFilter = new FilenameFilter() { 
+			public boolean accept(File arg0, String arg1) { 
+				return arg1.endsWith(".pcm"); 
+			} 
+		}; 
+
+		File repertoire = new File("pcms"); 
+		String[] children = repertoire.list(javaFilter); 
+		for(int i=0;i<children.length;i++){ 
+			System.out.println(children[i].substring(0,children[i].lastIndexOf(".pcm")));
+		} 
+
+		
 		try {
 			file = new Fichier();
 			Scanner sc = new Scanner(System.in);
