@@ -11,6 +11,8 @@ import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.PCMContainer;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
+import org.opencompare.file.Fonctionnement;
+import org.opencompare.file.FonctionnementInterface;
 
 public class testTraitementPcm {
 
@@ -26,8 +28,20 @@ public class testTraitementPcm {
 
         // Execute
         TraitementPcm traitement = new TraitementPcm();
-        traitement.clear(pcm);
-        traitement.printLocal();
+        traitement.clearAndSetVar(pcm);
+        //traitement.printLocal();
+        
+        
+        FonctionnementInterface fonctionnement = new Fonctionnement(traitement);
+        System.out.println("PCM avec "+fonctionnement.getNombreFeature()+" features et "+
+        fonctionnement.getNombreProduct()+" produits");
+        System.out.println("FEATURES : ");
+        for (String feat : fonctionnement.getFeatures()){
+        	System.out.println(feat);
+        }
+//        for (String prod : fonctionnement.getProducts()){
+//        	System.out.println(prod);
+//        }
 	}
 
 }

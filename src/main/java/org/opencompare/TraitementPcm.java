@@ -1,5 +1,8 @@
 package org.opencompare;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opencompare.api.java.Cell;
 import org.opencompare.api.java.Feature;
 import org.opencompare.api.java.FeatureGroup;
@@ -7,6 +10,7 @@ import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.PCMElement;
 import org.opencompare.api.java.PCMFactory;
 import org.opencompare.api.java.Product;
+import org.opencompare.api.java.Value;
 import org.opencompare.api.java.util.PCMVisitor;
 import org.opencompare.api.java.value.BooleanValue;
 import org.opencompare.api.java.value.Conditional;
@@ -24,45 +28,101 @@ import org.opencompare.api.java.value.Version;
 
 public class TraitementPcm implements PCMVisitor {
 
+	private String nomFeatureProduit ="";
+
 	private static PCMFactory factory = null;
 	private static PCM clone = null;
 	private boolean print = false;
+	private boolean clearAndSet = false;
+	
+	private boolean radar = false;
+	private String product ="";
+	private List<String>valueProduct;
 
-	// Clear le pcm pour avoir des cellules claires
-	public PCM clear(PCM pcm) {
+	private static String typeCell = "";
+
+	private static List<String> produits = new ArrayList<String>();
+	private static List<String> features = new ArrayList<String>();
+
+	// clearAndSet le pcm pour avoir des cellules claires
+	// Selon le type, met les cellules du bon type
+	// Si int -> 10g = 10
+	// ET initialise les variables static nombre produit nombre feature ...
+	public PCM clearAndSetVar(PCM pcm) {
 		System.out.println("DEBUT TRAITEMENT");
-		clone = pcm;
+		clearAndSet = true;
+		
 		pcm.accept(this);
+		clearAndSet = false;
+		clone = pcm;
 		return clone;
 	}
+	
+	public List<String> getProduitForRadar(String prod){
+		radar = true;
+		product = prod;
+		valueProduct=new ArrayList<String>();
+		clone.accept(this);
+		product = "";
+		radar = false;
+		return valueProduct;
+	}
 
+	// Fonction de test qui print
 	public void printLocal() {
 		System.out.println("Print pcm local");
 		print = true;
 		clone.accept(this);
 		print = false;
 	}
+	
+	public static List<String> getProduits() {
+		return produits;
+	}
+
+	public static List<String> getFeatures() {
+		return features;
+	}
 
 	@Override
 	public void visit(PCM pcm) {
-		//No need si on parcourt deja toutes les features
-		for (Product prod : pcm.getProducts()) {
-			prod.accept(this);
+		if (clearAndSet || print){
+			for (Product prod : pcm.getProducts()) {
+				prod.accept(this);
+			}
+	
+			for (Feature feat : pcm.getConcreteFeatures()) {
+				feat.accept(this);
+			}
 		}
-
-		for (Feature feat : pcm.getConcreteFeatures()) {
-			feat.accept(this);
+		else if (radar){
+			for (Product prod : pcm.getProducts()){
+				prod.accept(this);
+			}
+		}
+		else {
+			
 		}
 
 	}
 
 	@Override
 	public void visit(Feature feature) {
-		if (!print) {
+		if (clearAndSet) {
 			feature.setName(feature.getName().trim().toLowerCase());
-			clone.addFeature(feature);
-		} else {
+			
+			if (feature.getName() != null && !feature.getName().equals(nomFeatureProduit)) {
+				features.add(feature.getName());
+			}
+			
+			for (Cell cell : feature.getCells()) {
+				cell.accept(this);
+			}
+			
+		} else if (print) {
 			System.out.println(feature.getName());
+		} else {
+
 		}
 
 	}
@@ -75,23 +135,61 @@ public class TraitementPcm implements PCMVisitor {
 
 	@Override
 	public void visit(Product product) {
-		if (!print) {
+		if (clearAndSet) {
+			nomFeatureProduit=product.getKey().getName().trim().toLowerCase();
+			produits.add(product.getKeyContent());
+		} else if (print) {
+			System.out.println(product.getKeyContent());
+		} else if (radar) {
 			for (Cell cell : product.getCells()){
 				cell.accept(this);
 			}
-		} else {
-			System.out.println(product.getKeyContent());
+		}
+		else {
+			
 		}
 	}
 
 	@Override
 	public void visit(Cell cell) {
-
+		if (clearAndSet) {
+			Value val = cell.getInterpretation();
+			typeCell ="";
+			val.accept(this);
+			if (cell.getContent()==null){
+				if (typeCell.equals("boolean")){
+					cell.setContent("empty");
+				}
+				else if (typeCell.equals("integer")){
+					cell.setContent("empty");
+				}
+				else if (typeCell.equals("real")){
+					cell.setContent("empty");
+				}
+				else if (typeCell.equals("date")){
+					cell.setContent("empty");
+				}
+				else if (typeCell.equals("string")){
+					cell.setContent("empty");
+				}
+			}
+			else {
+				cell.setContent(cell.getContent().trim().toLowerCase());
+			}
+		}
+		else if (radar){
+			valueProduct.add(cell.getContent());
+		}
+		else {
+			
+		}
 	}
 
 	@Override
 	public void visit(BooleanValue booleanValue) {
-		// TODO Auto-generated method stub
+		if (clearAndSet){
+			typeCell="boolean";
+		}
 
 	}
 
@@ -103,7 +201,9 @@ public class TraitementPcm implements PCMVisitor {
 
 	@Override
 	public void visit(DateValue dateValue) {
-		// TODO Auto-generated method stub
+		if (clearAndSet){
+			typeCell="date";
+		}
 
 	}
 
@@ -115,8 +215,9 @@ public class TraitementPcm implements PCMVisitor {
 
 	@Override
 	public void visit(IntegerValue integerValue) {
-		// TODO Auto-generated method stub
-
+		if (clearAndSet){
+			typeCell="integer";
+		}
 	}
 
 	@Override
@@ -145,14 +246,16 @@ public class TraitementPcm implements PCMVisitor {
 
 	@Override
 	public void visit(RealValue realValue) {
-		// TODO Auto-generated method stub
-
+		if (clearAndSet){
+			typeCell="real";
+		}
 	}
 
 	@Override
 	public void visit(StringValue stringValue) {
-		// TODO Auto-generated method stub
-
+		if (clearAndSet){
+			typeCell="string";
+		}
 	}
 
 	@Override

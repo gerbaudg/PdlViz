@@ -2,7 +2,7 @@ package org.opencompare.file;
 import java.io.*;
 public class Fichier{
 	
-	//private int nbFeature = 4;
+	private int nbFeature;
 	private String htmlPath = "src/Graph.html";
 	private String jsPath = "src/js/newChart.js";
 	private String jsPathRelative = "js/newChart.js";
@@ -137,11 +137,8 @@ public class Fichier{
 	}
 
 
-   public static void main(String args[])throws IOException {
-	   Fichier file = new Fichier();
-	   file.createHtml();
-	   System.out.println("Le fichier html a ete cree.");
-	   file.createJS();
-	   System.out.println("Le fichier js a ete cree.");
-}
+	public void createRadarJS (){
+		//Récuperer une seule fois les features
+		// POur chaque product
+	}
    }
