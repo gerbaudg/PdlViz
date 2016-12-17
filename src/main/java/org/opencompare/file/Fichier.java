@@ -2,7 +2,7 @@ package org.opencompare.file;
 import java.io.*;
 public class Fichier{
 	
-	private int nbFeature;
+	private int nbFeature; // nombre feature
 	private String htmlPath = "Graph.html";
 	private String jsPath = "src/js/newChart.js";
 	private String jsPathRelative = "js/newChart.js";

@@ -44,7 +44,7 @@ public class Main {
 			fonctionnement = new Fonctionnement(traitement);
 			fonctionnement.getProducts();
 
-			file.createHtml(nbFeatures);
+			file.createHtml(nbFeatures);//prise en compte des features
 			System.out.println("Le fichier html a ete cree.");
 			file.createJS();
 			System.out.println("Les fichiers js ont ete crees.");
