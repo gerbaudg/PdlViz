@@ -1,7 +1,7 @@
 package org.opencompare.file;
 import java.io.*;
 public class Fichier{
-	
+
 	private int nbFeature; // nombre feature
 	private String htmlPath = "Graph.html";
 	private String jsPath = "src/js/newChart.js";
@@ -10,14 +10,14 @@ public class Fichier{
 	private String idChart ="myChart";
 	private String execFunction ="thisChart()";
 	private String pcmPath="";
-	
+
 	public void setpcmPath(String pcm){
 		pcmPath=pcm;
 	}
-	
+
 	public void createHtml(int nbFeatures) throws IOException{
-		String head,body,a;
-		a="";
+		String head,body,a, bouton,radar,baton,line,camembert;
+		bouton="";
 		head = "<!doctype html><html><head><meta charset=\"utf-8\">"
 				+"<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\">"
 				+"<TITLE>Votre comparateur</TITLE>"
@@ -25,18 +25,28 @@ public class Fichier{
 				+"</script></head>"
 				;
 		for(int i =0; i<nbFeatures; i++){
-			a = a+ "<button onclick=\""
-				+ execFunction
-				+ "\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
-				;
+			line = "<button onclick=\""
+					+ execFunction
+					+ "\";><img src=\"img/line-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>";
+			camembert = "<button onclick=\""
+					+ execFunction
+					+ "\";><img src=\"img/pie-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>";
+			baton = "<button onclick=\""
+					+ execFunction
+					+ "\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>";
+			radar ="<button onclick=\""
+					+ execFunction
+					+ "\";><img src=\"img/radar-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
+					;
+			bouton = bouton + radar;
 		}
-		
+
 		body = "<body>"
 				+"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>"
 				+"<script src=\""
 				+ jsPathRelative
 				+ "\" ></script>"
-				+a
+				+bouton
 				+"<button onclick=\""
 				+ execFunction
 				+ "\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
@@ -53,18 +63,18 @@ public class Fichier{
 		File file = new File(htmlPath);
 		// creates the file
 		file.createNewFile();
-		
-    
-    	// creates a FileWriter Object
-    	FileWriter writer = new FileWriter(file);
-    	
-    	// Writes the content to the file
-    	writer.write(head+body);
-    			
-    	writer.flush();
-    	writer.close();
- }
-	
+
+
+		// creates a FileWriter Object
+		FileWriter writer = new FileWriter(file);
+
+		// Writes the content to the file
+		writer.write(head+body);
+
+		writer.flush();
+		writer.close();
+	}
+
 	public void createJS() throws IOException {
 		String global,functions,chartFunction;
 		global = "Chart.defaults.scale.ticks.beginAtZero = true;Chart.defaults.global.elements.line.borderWidth = 1;";
@@ -126,23 +136,23 @@ public class Fichier{
 				"  });\r\n" +
 				"}"
 				;
-				//execFunction ="thisChart();";
-				
-				File file = new File(jsPath);
-				// creates the file
-				file.createNewFile();
-				
-		    
-		    	// creates a FileWriter Object
-		    	FileWriter writer = new FileWriter(file);
-		    	
-		    	// Writes the content to the file
-		    	writer.write(global+functions+chartFunction);
-		    			
-		    	writer.flush();
-		    	writer.close();
-				
-				;
+		//execFunction ="thisChart();";
+
+		File file = new File(jsPath);
+		// creates the file
+		file.createNewFile();
+
+
+		// creates a FileWriter Object
+		FileWriter writer = new FileWriter(file);
+
+		// Writes the content to the file
+		writer.write(global+functions+chartFunction);
+
+		writer.flush();
+		writer.close();
+
+		;
 	}
 
 
@@ -150,4 +160,4 @@ public class Fichier{
 		//Récuperer une seule fois les features
 		// POur chaque product
 	}
-   }
+}
