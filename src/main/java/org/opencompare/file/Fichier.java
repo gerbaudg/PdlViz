@@ -3,7 +3,7 @@ import java.io.*;
 public class Fichier{
 	
 	private int nbFeature;
-	private String htmlPath = "src/Graph.html";
+	private String htmlPath = "Graph.html";
 	private String jsPath = "src/js/newChart.js";
 	private String jsPathRelative = "js/newChart.js";
 	private String jsonPath = "json/voiture.json";
@@ -15,19 +15,28 @@ public class Fichier{
 		pcmPath=pcm;
 	}
 	
-	public void createHtml() throws IOException{
-		String head,body;
+	public void createHtml(int nbFeatures) throws IOException{
+		String head,body,a;
+		a="";
 		head = "<!doctype html><html><head><meta charset=\"utf-8\">"
 				+"<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\">"
 				+"<TITLE>Votre comparateur</TITLE>"
 				+ "<script src=\"https://code.jquery.com/jquery-3.1.1.min.js\">"
 				+"</script></head>"
 				;
+		for(int i =0; i<nbFeatures; i++){
+			a = a+ "<button onclick=\""
+				+ execFunction
+				+ "\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
+				;
+		}
+		
 		body = "<body>"
 				+"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>"
 				+"<script src=\""
 				+ jsPathRelative
 				+ "\" ></script>"
+				+a
 				+"<button onclick=\""
 				+ execFunction
 				+ "\";><img src=\"img/bars-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"

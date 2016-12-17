@@ -35,7 +35,8 @@ public class Main {
 	        PCM pcm = loader.load(pcmFile).get(0).getPcm();
 	        //assertNotNull(pcm);
 	        
-
+	       int nbFeatures = pcm.getConcreteFeatures().size();
+	       
 	        // Execute
 	        TraitementPcm traitement = new TraitementPcm();
 	        traitement.clearAndSetVar(pcm);
@@ -43,11 +44,11 @@ public class Main {
 			fonctionnement = new Fonctionnement(traitement);
 			fonctionnement.getProducts();
 
-			/*file.createHtml();
+			file.createHtml(nbFeatures);
 			System.out.println("Le fichier html a ete cree.");
 			file.createJS();
 			System.out.println("Les fichiers js ont ete crees.");
-			*/
+			
 			
 		//} catch (IOException e) {
 			//e.printStackTrace();
