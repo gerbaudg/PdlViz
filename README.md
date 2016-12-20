@@ -8,7 +8,7 @@
 
 *** RESULT ***
 
-- The result of the project is to be able to load the graphs of a matrix according to the data. 
+- The result of the project is to be able to load the graphs of a matrix according to the data.The result is generated  on Html Page 
 
 
 *** LICENCE ***
