@@ -25,6 +25,8 @@ public class Fichier{
 				+"</script></head>"
 				;
 		for(int i =0; i<nbFeatures; i++){
+			
+		
 			line = "<button onclick=\""
 					+ execFunction
 					+ "\";><img src=\"img/line-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>";
@@ -38,6 +40,10 @@ public class Fichier{
 					+ execFunction
 					+ "\";><img src=\"img/radar-chart.png\" width=\"32px\" height=\"32px\" class=\"coinphoto\"></button>"
 					;
+			//(if == line ){bouton = bouton + line;}
+			//(else if == camembert){bouton = bouton + camembert}
+			//(else if == baton){bouton = bouton + baton}
+			//(else  == radar){}
 			bouton = bouton + radar;
 		}
 
