@@ -21,7 +21,7 @@ public class Functions {
 	{
 	 // Define a file representing a PCM to load
    // File pcmFile = new File("pcms/Erasmus.pcm");
-    int numberofFeatures =0;
+  
     // Create a loader that can handle the file format
     PCMLoader loader = new KMFJSONLoader();
    HashMap<Feature,String> tab = new HashMap<Feature,String>();
@@ -47,7 +47,7 @@ public class Functions {
                 String content = cell.getContent();
                 String rawContent = cell.getRawContent();
                 Value interpretation = cell.getInterpretation();
-               numberofFeatures= pcm.getConcreteFeatures().size();
+             
                
                tab.put(feature,feature.getClass().getName());
                
@@ -77,7 +77,7 @@ public class Functions {
 	
 		// Define a file representing a PCM to load
 		   // File pcmFile = new File("pcms/Erasmus.pcm");
-		    int numberofFeatures =0;
+		
 		    // Create a loader that can handle the file format
 		    PCMLoader loader = new KMFJSONLoader();
 		   HashMap<Feature,String> tab = new HashMap<Feature,String>();
@@ -102,7 +102,7 @@ public class Functions {
 		                String content = cell.getContent();
 		                String rawContent = cell.getRawContent();
 		                Value interpretation = cell.getInterpretation();
-		               numberofFeatures= pcm.getConcreteFeatures().size();
+		           
 		               
 		               tab.put(feature,feature.getClass().getName());
 		               
@@ -138,7 +138,7 @@ public class Functions {
 		    int numberofFeatures =0;
 		    // Create a loader that can handle the file format
 		    PCMLoader loader = new KMFJSONLoader();
-		   HashMap<Feature,String> tab = new HashMap<Feature,String>();
+	
 		    // Load the file
 		    // A loader may return multiple PCM containers depending on the input format
 		    // A PCM container encapsulates a PCM and its associated metadata
