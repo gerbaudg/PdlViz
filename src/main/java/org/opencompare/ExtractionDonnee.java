@@ -22,7 +22,7 @@ public class ExtractionDonnee {
 	public static void main(String[] args) throws IOException {
 	 
 	        // Define a file representing a PCM to load
-	        File pcmFile = new File("pcms/example.pcm");
+	        File pcmFile = new File("pcms/Erasmus.pcm");
 	        int numberofFeatures =0;
 	        // Create a loader that can handle the file format
 	        PCMLoader loader = new KMFJSONLoader();
