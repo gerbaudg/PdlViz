@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 
 import org.opencompare.api.java.Cell;
@@ -25,7 +26,7 @@ public class ExtractionDonnee {
 	        int numberofFeatures =0;
 	        // Create a loader that can handle the file format
 	        PCMLoader loader = new KMFJSONLoader();
-       
+           HashMap<Feature,String> tab = new HashMap<Feature,String>();
 	        // Load the file
 	        // A loader may return multiple PCM containers depending on the input format
 	        // A PCM container encapsulates a PCM and its associated metadata
@@ -48,12 +49,19 @@ public class ExtractionDonnee {
 	                    String rawContent = cell.getRawContent();
 	                    Value interpretation = cell.getInterpretation();
                        numberofFeatures= pcm.getConcreteFeatures().size();
+                       
+                       tab.put(feature,feature.getClass().getName());
+                       
+                       
+                       
 	                    // Print the content of the cell
-	                // System.out.println("(" + product.getKeyContent() + ", " + feature.getName() + ") = " + content);
+	                 System.out.println("(" + product.getKeyContent() + ", " + feature.getName() + ") = " + content);
 	                   
 	                }
+	                
+	                
 	            }
-	            System.out.println("There is the number of features" + numberofFeatures); 
+	        //    System.out.println("There is the number of features" + numberofFeatures); 
 
 	            // Export the PCM container to CSV
 	            //CSVExporter csvExporter = new CSVExporter();
