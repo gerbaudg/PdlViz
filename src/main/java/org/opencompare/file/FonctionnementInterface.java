@@ -10,7 +10,7 @@ public interface FonctionnementInterface {
 	//labels : labels, -> nom des features
 	//datasets : dataS -> donnée pour un produit
 	//GENERE juste dataS  -> en pourcentage (pour lmiter l'echelle)
-	public Map<String,List<String>> genererRadarForProduct();
+	public Map<String,List<String[]>> genererRadarForProduct();
 	
 	
 	//Pour une feature genere les donnees pour faire un chart d'un certain type
@@ -28,6 +28,6 @@ public interface FonctionnementInterface {
 	public List<String> getProducts();
 	
 	//Return les types de chart possible pour une certaine feature
-	public String[] getChartTypeForFeature(String nomFeature);
+	public List<String> getChartTypeForFeature(String nomFeature);
 
 }

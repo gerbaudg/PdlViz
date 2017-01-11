@@ -16,12 +16,12 @@ public class Fonctionnement implements FonctionnementInterface {
 	}
 
 	@Override
-	public Map<String, List<String>> genererRadarForProduct() {
-		Map<String,List<String>>result = new HashMap<String, List<String>>();
-		//Mettre Feature, liste des nom de feature ---> NON appel a une autre fonction
-		for (String stg : TraitementPcm.getProduits()){
+	public Map<String, List<String[]>> genererRadarForProduct() {
+		Map<String,List<String[]>>result = new HashMap<String, List<String[]>>();
+		//Mettre Feature, liste des nom de feature ---> NON, appel a une autre fonction
+		for (String stg : traitement.getProduits()){
 			String key = stg;
-			List<String>value =traitement.getProduitForRadar(stg);
+			List<String[]>value =traitement.getProduitForRadar(stg);
 			result.put(key, value);
 		}
 		return result;
@@ -41,28 +41,28 @@ public class Fonctionnement implements FonctionnementInterface {
 
 	@Override
 	public int getNombreFeature() {
-		return TraitementPcm.getFeatures().size();
+		return traitement.getFeatures().size();
 	}
 
 	@Override
 	public List<String> getFeatures() {
-		return TraitementPcm.getFeatures();
+		return traitement.getFeatures();
 	}
 
 	@Override
 	public int getNombreProduct() {
-		return TraitementPcm.getProduits().size();
+		return traitement.getProduits().size();
 	}
 
 	@Override
 	public List<String> getProducts() {
-		return TraitementPcm.getProduits();
+		return traitement.getProduits();
 	}
 
 	@Override
-	public String[] getChartTypeForFeature(String nomFeature) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> getChartTypeForFeature(String nomFeature) {
+		return traitement.getTypeGraph(nomFeature);
+		
 	}
 
 }
